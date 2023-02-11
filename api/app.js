@@ -70,4 +70,21 @@ Drop;
 //   console.log(" and re-sync db.");
 // });
 
+function initial() {
+  Role.create({
+    id: 1,
+    name: "user",
+  });
+
+  Role.create({
+    id: 2,
+    name: "staff",
+  });
+
+  Role.create({
+    id: 3,
+    name: "admin",
+  });
+}
+
 module.exports = app;
