@@ -7,6 +7,8 @@ const bodyParser = require("body-parser");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+var authRouter = require("./routes/auth.routes");
+var userRouter = require("./routes/user.routes");
 // var servicesRouter = require("./routes/services");
 
 var app = express();
@@ -39,6 +41,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/auth", authRouter);
+app.use("/user", userRouter);
 // app.use("/api/services", servicesRouter);
 
 // catch 404 and forward to error handler
@@ -57,18 +61,18 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-db.sequelize
-  .sync()
-  .then(() => {
-    console.log("Synced db.");
-  })
-  .catch((err) => {
-    console.log("Failed to sync db: " + err.message);
-  });
+// db.sequelize
+//   .sync()
+//   .then(() => {
+//     console.log("Synced db.");
+//   })
+//   .catch((err) => {
+//     console.log("Failed to sync db: " + err.message);
+//   });
 
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log(" and re-sync db.");
-// });
+db.sequelize.sync({ force: true }).then(() => {
+  console.log(" and re-sync db.");
+});
 
 function initial() {
   Role.create({
