@@ -25,6 +25,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = require("./models");
 
+db.sequelize.sync();
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
@@ -63,8 +65,6 @@ db.sequelize
   .catch((err) => {
     console.log("Failed to sync db: " + err.message);
   });
-
-Drop;
 
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log(" and re-sync db.");
