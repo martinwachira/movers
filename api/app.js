@@ -6,7 +6,7 @@ var logger = require("morgan");
 const bodyParser = require("body-parser");
 
 var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+// var usersRouter = require("./routes/users");
 var authRouter = require("./routes/auth.routes");
 var userRouter = require("./routes/user.routes");
 // var servicesRouter = require("./routes/services");
@@ -26,6 +26,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = require("./models");
+const Role = db.role;
 
 db.sequelize.sync();
 
@@ -40,7 +41,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+// app.use("/users", usersRouter);
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
 // app.use("/api/services", servicesRouter);
@@ -61,18 +62,20 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-// db.sequelize
-//   .sync()
-//   .then(() => {
-//     console.log("Synced db.");
-//   })
-//   .catch((err) => {
-//     console.log("Failed to sync db: " + err.message);
-//   });
+db.sequelize
+  .sync()
+  .then(() => {
+    console.log("Synced db.");
+    // initial();
+  })
+  .catch((err) => {
+    console.log("Failed to sync db: " + err.message);
+  });
 
-db.sequelize.sync({ force: true }).then(() => {
-  console.log(" and re-sync db.");
-});
+// db.sequelize.sync({ force: true }).then(() => {
+//   console.log("Drop and Resync Db");
+//   initial();
+// });
 
 function initial() {
   Role.create({
