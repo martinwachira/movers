@@ -34,7 +34,7 @@ isAdmin = (req, res, next) => {
       }
 
       res.status(403).send({
-        message: "Requires Admin Role!",
+        message: "Require Admin Role!",
       });
       return;
     });
@@ -52,7 +52,7 @@ isStaff = (req, res, next) => {
       }
 
       res.status(403).send({
-        message: "Requires Staff Role!",
+        message: "Require Staff Role!",
       });
     });
   });
@@ -74,7 +74,7 @@ isStaffOrAdmin = (req, res, next) => {
       }
 
       res.status(403).send({
-        message: "Requires Staff or Admin Role!",
+        message: "Require Staff or Admin Role!",
       });
     });
   });
