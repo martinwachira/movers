@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-import AuthService from "../services/auth.service";
+// import AuthService from "../services/auth.service";
 import { Navigate } from "react-router-dom";
 import UserService from "../services/user.service";
-import userService from "../services/user.service";
 
 const BoardAdmin = () => {
   const [content, setContent] = useState("");
-  const [currentUser, setCurrentUser] = useState({ username: "" });
+  const [users, setUsers] = useState("");
+  // const [currentUser, setCurrentUser] = useState({ username: "" });
   const [redirect, setRedirect] = useState(null);
 
   useEffect(() => {
-    const currentUser = AuthService.getCurrentUser();
-
-    if (!currentUser) {
-      setRedirect("/home");
-    } else {
-      setCurrentUser(currentUser);
-    }
     UserService.getAdminBoard().then(
       (response) => {
         setContent(response.data);
@@ -32,13 +25,12 @@ const BoardAdmin = () => {
         );
       }
     );
-    userService.getAllUsers().then(
+    UserService.getAllUsers().then(
       (response) => {
-        setContent(response.data);
-        console.log("response data", response.data);
+        setUsers(response.data);
       },
       (error) => {
-        setContent(
+        setUsers(
           (error.response &&
             error.response.data &&
             error.response.data.message) ||
@@ -53,11 +45,13 @@ const BoardAdmin = () => {
     return <Navigate to={redirect} />;
   }
 
+  console.log("users", users);
+
   return (
     <div className="container">
       <header className="jumbotron">
         <h3>{content}</h3>
-        <table class="table">
+        <table className="table">
           <thead class="thead-light">
             <tr>
               <th scope="col">#</th>
@@ -69,20 +63,26 @@ const BoardAdmin = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>{currentUser.username}</td>
-              <td>{currentUser.email}</td>
-              <td>{currentUser.role}</td>
-              <td>
-                *******************
-                {/* {currentUser.accessToken.substring(0, 10)} ...
+            {users &&
+              users.map((user) => (
+                <tr key={user.id}>
+                  <th>{user.id}</th>
+                  <td>
+                    {user.username.charAt(0).toUpperCase() +
+                      user.username.slice(1)}
+                  </td>
+                  <td>{user.email}</td>
+                  <td>{user.role}</td>
+                  <td>
+                    *******************
+                    {/* {currentUser.accessToken.substring(0, 10)} ...
                 {currentUser.accessToken.substr(
                   currentUser.accessToken.length - 10
                 )} */}
-              </td>
-              <td>Edit</td>
-            </tr>
+                  </td>
+                  <td>Edit</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </header>
