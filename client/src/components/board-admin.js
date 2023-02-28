@@ -51,6 +51,7 @@ const BoardAdmin = () => {
     <div className="container">
       <header className="jumbotron">
         <h3>{content}</h3>
+        <p style={{ color: "#f09a53" }}>Users</p>
         <table className="table">
           <thead class="thead-light">
             <tr>
@@ -84,6 +85,8 @@ const BoardAdmin = () => {
               ))}
           </tbody>
         </table>
+        <br />
+        <p style={{ color: "#f09a53" }}>Vehicles</p>
       </header>
     </div>
   );
