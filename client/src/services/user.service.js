@@ -24,12 +24,17 @@ const UserService = () => {
     return axios.get(API_URL + "getUsers", { headers: authHeader() });
   }
 
+  function getRoles() {
+    return axios.get(API_URL + "getRoles", { headers: authHeader() });
+  }
+
   return {
     getPublicContent,
     getUserBoard,
     getStaffBoard,
     getAdminBoard,
     getAllUsers,
+    getRoles,
   };
 };
 

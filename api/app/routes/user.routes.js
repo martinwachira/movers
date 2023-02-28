@@ -32,4 +32,11 @@ module.exports = function (app) {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.findAllUsers
   );
+
+  //get roles
+  app.get(
+    "/api/test/getRoles",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.findAllRoles
+  );
 };

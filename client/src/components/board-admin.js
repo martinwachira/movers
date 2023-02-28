@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-// import AuthService from "../services/auth.service";
-import { Navigate } from "react-router-dom";
+// import { Navigate } from "react-router-dom";
 import UserService from "../services/user.service";
 
 const BoardAdmin = () => {
   const [content, setContent] = useState("");
   const [users, setUsers] = useState("");
-  // const [currentUser, setCurrentUser] = useState({ username: "" });
-  const [redirect, setRedirect] = useState(null);
+  // const [redirect, setRedirect] = useState(null);
 
   useEffect(() => {
     UserService.getAdminBoard().then(
@@ -39,11 +37,14 @@ const BoardAdmin = () => {
         );
       }
     );
+    UserService.getRoles().then((usersWithRoles) => {
+      console.log("response roles", usersWithRoles);
+    });
   }, []);
 
-  if (redirect) {
-    return <Navigate to={redirect} />;
-  }
+  // if (redirect) {
+  //   return <Navigate to={redirect} />;
+  // }
 
   console.log("users", users);
 
@@ -65,7 +66,7 @@ const BoardAdmin = () => {
           </thead>
           <tbody>
             {users &&
-              users.map((user) => (
+              users?.map((user) => (
                 <tr key={user.id}>
                   <th>{user.id}</th>
                   <td>
@@ -73,7 +74,13 @@ const BoardAdmin = () => {
                       user.username.slice(1)}
                   </td>
                   <td>{user.email}</td>
-                  <td>users</td>
+                  <td>
+                    {" "}
+                    {user.roles &&
+                      user.roles.map((role, index) => (
+                        <li key={index}>{role}</li>
+                      ))}
+                  </td>
                   <td>
                     *******************
                     {/* {user.accessToken.slice(0, 10) + user.accessToken(0, -10)} */}
