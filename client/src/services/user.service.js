@@ -3,22 +3,29 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8080/api/test/";
 
-class userService {
-  getPublicContent() {
+const UserService = () => {
+  function getPublicContent() {
     return axios.get(API_URL + "all");
   }
 
-  getUserBoard() {
+  function getUserBoard() {
     return axios.get(API_URL + "user", { headers: authHeader() });
   }
 
-  getStaffBoard() {
+  function getStaffBoard() {
     return axios.get(API_URL + "staff", { headers: authHeader() });
   }
 
-  getAdminBoard() {
+  function getAdminBoard() {
     return axios.get(API_URL + "admin", { headers: authHeader() });
   }
-}
 
-export default new userService();
+  return {
+    getPublicContent,
+    getUserBoard,
+    getStaffBoard,
+    getAdminBoard,
+  };
+};
+
+export default UserService();

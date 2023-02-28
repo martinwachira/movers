@@ -13,12 +13,10 @@ const Profile = () => {
 
     if (!currentUser) {
       setRedirect("/home");
-      // console.log("user", currentUser);
     } else {
       setCurrentUser(currentUser);
       setUserReady(true);
     }
-    // }, [setRedirect, setCurrentUser, setUserReady]);
   }, []);
 
   if (redirect) {
