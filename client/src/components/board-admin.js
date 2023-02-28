@@ -39,7 +39,7 @@ const BoardAdmin = () => {
     return <Navigate to={redirect} />;
   }
 
-  console.log("current user", currentUser);
+  // console.log("current user", currentUser);
 
   return (
     <div className="container">
@@ -63,10 +63,12 @@ const BoardAdmin = () => {
               <td>{currentUser.email}</td>
               <td>{currentUser.role}</td>
               <td>
-                {currentUser.accessToken.substring(0, 10)} ...{" "}
+                *******************
+                {/* {currentUser.accessToken} */}
+                {/* {currentUser.accessToken.substring(0, 10)} ...
                 {currentUser.accessToken.substr(
                   currentUser.accessToken.length - 10
-                )}
+                )} */}
               </td>
               <td>Edit</td>
             </tr>
