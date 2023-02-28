@@ -72,13 +72,12 @@ const BoardAdmin = () => {
                       user.username.slice(1)}
                   </td>
                   <td>{user.email}</td>
-                  <td>{user.role}</td>
+                  <td>User</td>
                   <td>
                     *******************
-                    {/* {currentUser.accessToken.substring(0, 10)} ...
-                {currentUser.accessToken.substr(
-                  currentUser.accessToken.length - 10
-                )} */}
+                    {/* {user.accessToken.slice(0, 10) + user.accessToken(0, -10)} */}
+                    {/* {user.accessToken.substring(0, 10)} ...
+                    {user.accessToken.substr(user.accessToken.length - 10)} */}
                   </td>
                   <td>Edit</td>
                 </tr>

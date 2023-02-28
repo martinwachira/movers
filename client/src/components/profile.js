@@ -29,7 +29,11 @@ const Profile = () => {
         <div>
           <header className="jumbotron">
             <h3>
-              <strong>{currentUser.username}</strong> Profile
+              <strong>
+                {currentUser.username.charAt(0).toUpperCase() +
+                  currentUser.username.slice(1)}
+              </strong>{" "}
+              Profile
             </h3>
           </header>
           <p>
@@ -40,10 +44,10 @@ const Profile = () => {
             )}
           </p>
           <p>
-            <strong>Id:</strong> {currentUser.id}
+            <strong>Id:</strong> &nbsp;{currentUser.id}
           </p>
           <p>
-            <strong>Email:</strong> {currentUser.email}
+            <strong>Email:</strong> &nbsp;{currentUser.email}
           </p>
           <strong>Authorities:</strong>
           <ul>

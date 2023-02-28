@@ -45,6 +45,17 @@ label {
   background-color: orange;
   border-radius: 1rem;
 }
+
+.form-group-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-group-row label {
+  margin-right: 1rem;
+}
 /*  */
 
 @media (prefers-reduced-motion: no-preference) {

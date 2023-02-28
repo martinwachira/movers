@@ -142,14 +142,16 @@ const Register = () => {
                   validations={[required, vpassword]}
                 />
               </div>
-              <div className="form-group">
+              <div className="form-group-row">
+                <label htmlFor="Role">Role</label>
+                {/* <div className="form-group"> */}
                 <label>
                   <input
                     type="checkbox"
                     checked={user}
                     onChange={handleUserCheckboxChange}
-                  />
-                  User
+                  />{" "}
+                  &nbsp; User
                 </label>
 
                 <label>
@@ -158,8 +160,9 @@ const Register = () => {
                     checked={staff}
                     onChange={handleStaffCheckboxChange}
                   />
-                  Staff
+                  &nbsp; Staff
                 </label>
+                {/* </div> */}
               </div>
               <br />
               <div className="form-group">
