@@ -14,19 +14,17 @@ const AuthService = {
           localStorage.setItem("user", JSON.stringify(response.data));
         }
 
-        console.log("user", response.data);
+        // console.log("user", response.data);
 
         return response.data;
       });
   },
 
-  register: (username, email, password, user, staff) => {
+  register: (username, email, password) => {
     return axios(API_URL + "signup", {
       username,
       email,
       password,
-      user,
-      staff,
     });
   },
 

@@ -22,6 +22,7 @@ const Profile = () => {
   if (redirect) {
     return <Navigate to={redirect} />;
   }
+  console.log("users", currentUser);
 
   return (
     <div className="container">
@@ -49,7 +50,7 @@ const Profile = () => {
           <p>
             <strong>Email:</strong> &nbsp;{currentUser.email}
           </p>
-          <strong>Authorities:</strong>
+          <strong>Role:</strong>
           <ul>
             {currentUser.roles &&
               currentUser.roles.map((role, index) => (
