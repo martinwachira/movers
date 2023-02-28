@@ -20,11 +20,16 @@ const UserService = () => {
     return axios.get(API_URL + "admin", { headers: authHeader() });
   }
 
+  function getAllUsers() {
+    return axios.get(API_URL + "getUsers", { headers: authHeader() });
+  }
+
   return {
     getPublicContent,
     getUserBoard,
     getStaffBoard,
     getAdminBoard,
+    getAllUsers,
   };
 };
 

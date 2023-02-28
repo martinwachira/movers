@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import AuthService from "../services/auth.service";
 import { Navigate } from "react-router-dom";
 import UserService from "../services/user.service";
+import userService from "../services/user.service";
 
 const BoardAdmin = () => {
   const [content, setContent] = useState("");
   const [currentUser, setCurrentUser] = useState({ username: "" });
-  const [userReady, setUserReady] = useState(false);
   const [redirect, setRedirect] = useState(null);
 
   useEffect(() => {
@@ -17,11 +17,25 @@ const BoardAdmin = () => {
       setRedirect("/home");
     } else {
       setCurrentUser(currentUser);
-      setUserReady(true);
     }
     UserService.getAdminBoard().then(
       (response) => {
         setContent(response.data);
+      },
+      (error) => {
+        setContent(
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+            error.message ||
+            error.toString()
+        );
+      }
+    );
+    userService.getAllUsers().then(
+      (response) => {
+        setContent(response.data);
+        console.log("response data", response.data);
       },
       (error) => {
         setContent(
@@ -38,8 +52,6 @@ const BoardAdmin = () => {
   if (redirect) {
     return <Navigate to={redirect} />;
   }
-
-  // console.log("current user", currentUser);
 
   return (
     <div className="container">
@@ -64,7 +76,6 @@ const BoardAdmin = () => {
               <td>{currentUser.role}</td>
               <td>
                 *******************
-                {/* {currentUser.accessToken} */}
                 {/* {currentUser.accessToken.substring(0, 10)} ...
                 {currentUser.accessToken.substr(
                   currentUser.accessToken.length - 10
