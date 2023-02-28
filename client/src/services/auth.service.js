@@ -14,8 +14,6 @@ const AuthService = {
           localStorage.setItem("user", JSON.stringify(response.data));
         }
 
-        // console.log("user", response.data);
-
         return response.data;
       });
   },

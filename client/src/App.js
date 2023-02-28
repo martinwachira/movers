@@ -23,8 +23,8 @@ function App() {
 
     if (user) {
       setCurrentUser(user);
-      setShowStaffBoard(user.roles.includes("ROLE_STAFF"));
-      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+      setShowStaffBoard(user.roles.includes("STAFF"));
+      setShowAdminBoard(user.roles.includes("ADMIN"));
     }
   }, []);
 

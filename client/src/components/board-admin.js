@@ -73,7 +73,7 @@ const BoardAdmin = () => {
                       user.username.slice(1)}
                   </td>
                   <td>{user.email}</td>
-                  <td>User</td>
+                  <td>users</td>
                   <td>
                     *******************
                     {/* {user.accessToken.slice(0, 10) + user.accessToken(0, -10)} */}
