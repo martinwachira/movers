@@ -60,6 +60,8 @@ exports.findAllUsers = (req, res) => {
           id: user.id,
           username: user.username,
           email: user.email,
+          password: user.password,
+          createdAt: user.createdAt,
           roles: roles,
         };
       });

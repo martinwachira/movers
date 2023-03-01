@@ -60,7 +60,7 @@ const BoardAdmin = () => {
               <th scope="col">Username</th>
               <th scope="col">Email</th>
               <th scope="col">Role</th>
-              <th scope="col">Access Token</th>
+              <th scope="col">Date Created</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -83,12 +83,7 @@ const BoardAdmin = () => {
                         </span>
                       ))}
                   </td>
-                  <td>
-                    *******************
-                    {/* {user.accessToken.slice(0, 10) + user.accessToken(0, -10)} */}
-                    {/* {user.accessToken.substring(0, 10)} ...
-                    {user.accessToken.substr(user.accessToken.length - 10)} */}
-                  </td>
+                  <td>{new Date(user.createdAt).toDateString()}</td>
                   <td>Edit</td>
                 </tr>
               ))}
