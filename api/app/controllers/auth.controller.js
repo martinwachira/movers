@@ -14,7 +14,7 @@ exports.signup = async (req, res) => {
     username: req.body.username,
     email: req.body.email,
     password: await bcrypt.hashSync(req.body.password, 8),
-    //add roles here
+    roleId: req.body.roleId || 1, // set default role to 1 if roleId is not provided
   })
     .then((user) => {
       if (req.body.roles) {
@@ -31,7 +31,7 @@ exports.signup = async (req, res) => {
         });
       } else {
         // user role = 1
-        user.setRoles([1]).then(() => {
+        user.setRoles([user.roleId]).then(() => {
           res.send({ message: "User registered successfully!" });
         });
       }

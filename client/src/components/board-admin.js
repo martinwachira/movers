@@ -85,7 +85,8 @@ const BoardAdmin = () => {
                   </td>
                   <td>{new Date(user.createdAt).toDateString()}</td>
                   <td>
-                    <i class="bi bi-pencil-square"></i> &nbsp; &nbsp;{" "}
+                    <i class="bi bi-pencil-square"></i>
+                    &nbsp; &nbsp;
                     <i class="bi bi-trash-fill"></i>
                   </td>
                 </tr>

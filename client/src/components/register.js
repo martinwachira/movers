@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 
 import AuthService from "../services/auth.service";
 import CheckButton from "react-validation/build/button";
@@ -50,21 +50,22 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState({
+    user: false,
+    staff: false,
+  });
   const [message, setMessage] = useState("");
   const [successful, setSuccessful] = useState(false);
-  const [user, setUserRole] = useState(false);
-  const [staff, setStaffRole] = useState(false);
 
   const form = useRef(null);
   const checkBtnRef = useRef(null);
 
-  function handleUserCheckboxChange(event) {
-    setUserRole(event.target.checked);
-  }
+  const handleRoleCheckboxChange = useCallback((event) => {
+    setRole((prev) => ({ ...prev, [event.target.id]: event.target.checked }));
+  }, []);
 
-  function handleStaffCheckboxChange(event) {
-    setStaffRole(event.target.checked);
-  }
+  const roleArray = Object.entries(role);
+  console.log("roles", roleArray);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -75,10 +76,11 @@ const Register = () => {
     form.current.validateAll();
 
     if (checkBtnRef.current.context._errors.length === 0) {
-      AuthService.register(username, email, password, user, staff).then(
+      AuthService.register(username, email, password, roleArray).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
+          console.log("response", response);
         },
         (error) => {
           const resMessage =
@@ -148,8 +150,9 @@ const Register = () => {
                 <label>
                   <input
                     type="checkbox"
-                    checked={user}
-                    onChange={handleUserCheckboxChange}
+                    id="user"
+                    checked={role.user}
+                    onChange={handleRoleCheckboxChange}
                   />{" "}
                   &nbsp; User
                 </label>
@@ -157,8 +160,9 @@ const Register = () => {
                 <label>
                   <input
                     type="checkbox"
-                    checked={staff}
-                    onChange={handleStaffCheckboxChange}
+                    id="staff"
+                    checked={role.staff}
+                    onChange={handleRoleCheckboxChange}
                   />
                   &nbsp; Staff
                 </label>
