@@ -37,9 +37,9 @@ const BoardAdmin = () => {
         );
       }
     );
-    UserService.getRoles().then((usersWithRoles) => {
-      console.log("response roles", usersWithRoles);
-    });
+    // UserService.getRoles().then((response) => {
+    //   console.log("response roles", response);
+    // });
   }, []);
 
   // if (redirect) {
@@ -78,7 +78,9 @@ const BoardAdmin = () => {
                     {" "}
                     {user.roles &&
                       user.roles.map((role, index) => (
-                        <li key={index}>{role}</li>
+                        <span key={index}>
+                          <i>{role} | </i>
+                        </span>
                       ))}
                   </td>
                   <td>

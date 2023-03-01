@@ -1,6 +1,6 @@
 const db = require("../models");
 // const Role = require("../models/role.model.js");
-const Role = require("../models/role.model.js")(sequelize, Sequelize);
+const Role = db.role;
 
 const User = db.user;
 const Op = db.Sequelize.Op;
@@ -22,25 +22,25 @@ exports.staffBoard = (req, res) => {
 };
 
 // get all users
+// exports.findAllUsers = (req, res) => {
+//   const username = req.query.username;
+//   var condition = username
+//     ? { username: { [Op.iLike]: `%${username}%` } }
+//     : null;
+
+//   User.findAll({ where: condition })
+//     .then((data) => {
+//       res.send(data);
+//     })
+//     .catch((err) => {
+//       res.status(500).send({
+//         message: err.message || "Some error occurred while retrieving users.",
+//       });
+//     });
+// };
+
+//fetch all users together with their roles
 exports.findAllUsers = (req, res) => {
-  const username = req.query.username;
-  var condition = username
-    ? { username: { [Op.iLike]: `%${username}%` } }
-    : null;
-
-  User.findAll({ where: condition })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while retrieving users.",
-      });
-    });
-};
-
-// get roles
-exports.findAllRoles = (req, res) => {
   User.findAll({
     include: [
       {
@@ -53,7 +53,9 @@ exports.findAllRoles = (req, res) => {
     .then((users) => {
       // Extract user data and roles into a new array of objects
       const usersWithRoles = users.map((user) => {
-        const roles = user.roles.map((role) => role.name.toUpperCase());
+        const roles = user.roles.map(
+          (role) => role.name.charAt(0).toUpperCase() + role.name.slice(1)
+        );
         return {
           id: user.id,
           username: user.username,
@@ -61,9 +63,12 @@ exports.findAllRoles = (req, res) => {
           roles: roles,
         };
       });
+
       res.status(200).send(usersWithRoles);
     })
     .catch((err) => {
-      res.status(500).send({ message: err.message });
+      res.status(500).send({
+        message: err.message && "Error occured while fetching users' roles",
+      });
     });
 };

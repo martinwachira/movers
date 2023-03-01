@@ -26,7 +26,7 @@ module.exports = function (app) {
     controller.adminBoard
   );
 
-  //get users
+  //get users and their roles
   app.get(
     "/api/test/getUsers",
     [authJwt.verifyToken, authJwt.isAdmin],
@@ -34,9 +34,9 @@ module.exports = function (app) {
   );
 
   //get roles
-  app.get(
-    "/api/test/getRoles",
-    [authJwt.verifyToken, authJwt.isAdmin],
-    controller.findAllRoles
-  );
+  // app.get(
+  //   "/api/test/getRoles",
+  //   [authJwt.verifyToken, authJwt.isAdmin],
+  //   controller.findAllRoles
+  // );
 };
