@@ -66,10 +66,12 @@ const BoardAdmin = () => {
   console.log("users", users);
 
   return (
-    <div className="container">
+    <div className="container App">
       <header className="jumbotron">
         <h3>{content}</h3>
-        <p style={{ color: "#f09a53" }}>Users</p>
+      </header>
+      <p style={{ color: "#f09a53" }}>Users</p>
+      <div style={{ marginBottom: "2rem" }}>
         <table className="table">
           <thead class="thead-light">
             <tr>
@@ -155,7 +157,7 @@ const BoardAdmin = () => {
               ))}
           </tbody>
         </table>
-      </header>
+      </div>
     </div>
   );
 };
