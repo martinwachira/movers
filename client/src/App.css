@@ -69,6 +69,12 @@ h2 {
   margin-top: 2rem;
 }
 
+.app-head {
+  top: 0;
+  position: fixed;
+  width: 100%;
+}
+
 .App-footer {
   background-color: #c5a229;
   color: #fff;

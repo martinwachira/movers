@@ -38,7 +38,7 @@ function App() {
   const year = new Date().getFullYear();
   return (
     <div>
-      <nav className="navbar navbar-expand navbar-dark bg-dark ">
+      <nav className="navbar navbar-expand navbar-dark bg-dark app-head">
         <Link to={"/"} className="navbar-brand container">
           Movers App
         </Link>
@@ -105,8 +105,8 @@ function App() {
           )}
         </div>
       </nav>
-
-      <div className="container mt-3">
+      <br />
+      <div className="container mt-5">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
