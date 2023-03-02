@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 
 // import { Navigate } from "react-router-dom";
 import UserService from "../services/user.service";
+import VehicleService from "../services/vehicle.service";
 
 const BoardAdmin = () => {
   const [content, setContent] = useState("");
   const [users, setUsers] = useState("");
+  const [vehicles, setVehicles] = useState("");
   // const [redirect, setRedirect] = useState(null);
 
   useEffect(() => {
@@ -40,6 +42,21 @@ const BoardAdmin = () => {
     // UserService.getRoles().then((response) => {
     //   console.log("response roles", response);
     // });
+
+    VehicleService.getAllVehicles().then(
+      (response) => {
+        setVehicles(response.data);
+      },
+      (error) => {
+        setVehicles(
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+            error.message ||
+            error.toString()
+        );
+      }
+    );
   }, []);
 
   // if (redirect) {
@@ -95,6 +112,49 @@ const BoardAdmin = () => {
         </table>
         <br />
         <p style={{ color: "#f09a53" }}>Vehicles</p>
+        <table className="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Type</th>
+              <th scope="col">Make</th>
+              <th scope="col">Mileage</th>
+              <th scope="col">Location</th>
+              <th scope="col">Capacity</th>
+              <th scope="col">Date Created</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {vehicles &&
+              vehicles?.map((vehicle) => (
+                <tr key={vehicle.id}>
+                  <th>{vehicle.id}</th>
+                  <td>
+                    {vehicle.vtype.charAt(0).toUpperCase() +
+                      vehicle.vtype.slice(1)}
+                  </td>
+                  <td>
+                    {" "}
+                    {vehicle.vmake.charAt(0).toUpperCase() +
+                      vehicle.vmake.slice(1)}
+                  </td>
+                  <td>{vehicle.vmileage}</td>
+                  <td>
+                    {vehicle.vlocation.charAt(0).toUpperCase() +
+                      vehicle.vlocation.slice(1)}
+                  </td>
+                  <td>{vehicle.vcapacity}</td>
+                  <td>{new Date(vehicle.createdAt).toDateString()}</td>
+                  <td>
+                    <i class="bi bi-pencil-square"></i>
+                    &nbsp; &nbsp;
+                    <i class="bi bi-trash-fill"></i>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
       </header>
     </div>
   );
