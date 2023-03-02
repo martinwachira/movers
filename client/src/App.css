@@ -56,6 +56,32 @@ label {
 .form-group-row label {
   margin-right: 1rem;
 }
+
+h2 {
+  color: #c5a229;
+}
+
+.banner {
+  margin-top: 2rem;
+}
+
+.App-footer {
+  background-color: #c5a229;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.homeCard {
+  background-color: #ac9441;
+  border: 0.2rem #473c12 solid;
+  margin: 2% 10%;
+  border-radius: 2rem;
+}
 /*  */
 
 @media (prefers-reduced-motion: no-preference) {

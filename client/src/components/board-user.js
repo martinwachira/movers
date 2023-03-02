@@ -26,6 +26,7 @@ const BoardUser = () => {
     <div className="container">
       <header className="jumbotron">
         <h3>{content}</h3>
+        <div className="container">Moving Made Easier with Movers App</div>
       </header>
     </div>
   );

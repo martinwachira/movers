@@ -35,6 +35,7 @@ function App() {
     setCurrentUser(undefined);
   };
 
+  const year = new Date().getFullYear();
   return (
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark ">
@@ -117,6 +118,9 @@ function App() {
           <Route path="/admin" element={<BoardAdmin />} />
         </Routes>
       </div>
+      <footer className="App-footer">
+        <p>&copy;{year} Movers App</p>
+      </footer>
     </div>
   );
 }
