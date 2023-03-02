@@ -86,9 +86,9 @@ const BoardAdmin = () => {
           </thead>
           <tbody>
             {users &&
-              users?.map((user) => (
+              users?.map((user, index) => (
                 <tr key={user.id}>
-                  <th>{user.id}</th>
+                  <th>{index + 1}</th>
                   <td>
                     {user.username.charAt(0).toUpperCase() +
                       user.username.slice(1)}
@@ -131,9 +131,9 @@ const BoardAdmin = () => {
           </thead>
           <tbody>
             {vehicles &&
-              vehicles?.map((vehicle) => (
+              vehicles?.map((vehicle, index) => (
                 <tr key={vehicle.id}>
-                  <th>{vehicle.id}</th>
+                  <th>{index + 1}</th>
                   <td>
                     {vehicle.vtype.charAt(0).toUpperCase() +
                       vehicle.vtype.slice(1)}
