@@ -64,6 +64,7 @@ const BoardAdmin = () => {
   // }
 
   console.log("users", users);
+  console.log("vehicles", vehicles);
 
   return (
     <div className="container App">
@@ -123,6 +124,7 @@ const BoardAdmin = () => {
               <th scope="col">Mileage</th>
               <th scope="col">Location</th>
               <th scope="col">Capacity</th>
+              <th scope="col">Driver</th>
               <th scope="col">Date Created</th>
               <th scope="col">Action</th>
             </tr>
@@ -147,6 +149,10 @@ const BoardAdmin = () => {
                       vehicle.vlocation.slice(1)}
                   </td>
                   <td>{vehicle.vcapacity}</td>
+                  <td>
+                    {vehicle.user.username.charAt(0).toUpperCase() +
+                      vehicle.user.username.slice(1)}
+                  </td>
                   <td>{new Date(vehicle.createdAt).toDateString()}</td>
                   <td>
                     <i class="bi bi-pencil-square"></i>

@@ -1,5 +1,6 @@
 const db = require("../models");
 const Vehicle = db.vehicle;
+const User = db.user;
 
 // const Op = db.Sequelize.Op;
 
@@ -24,6 +25,7 @@ exports.createVehicle = async (req, res) => {
     vmileage: req.body.vmileage,
     vlocation: req.body.vlocation,
     vcapacity: req.body.vcapacity,
+    userId: req.body.userId,
   };
   // Save Vehicle in the database
   Vehicle.create(vehicle)
@@ -39,12 +41,14 @@ exports.createVehicle = async (req, res) => {
 };
 
 exports.findAllVehicles = (req, res) => {
-  //   const username = req.query.username;
-  //   var condition = username
-  //     ? { username: { [Op.iLike]: `%${username}%` } }
-  //     : null;
-
-  Vehicle.findAll()
+  Vehicle.findAll({
+    include: [
+      {
+        model: User,
+        attributes: ["username"],
+      },
+    ],
+  })
     .then((data) => {
       res.send(data);
     })

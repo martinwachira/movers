@@ -1,3 +1,4 @@
+const User = require("./user.model.js");
 module.exports = (sequelize, Sequelize) => {
   const Vehicle = sequelize.define("vehicles", {
     vtype: {
