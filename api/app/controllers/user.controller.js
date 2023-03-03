@@ -61,6 +61,7 @@ exports.findAllUsers = (req, res) => {
           username: user.username,
           email: user.email,
           password: user.password,
+          verified: user.verified,
           createdAt: user.createdAt,
           roles: roles,
         };
