@@ -64,8 +64,12 @@ const Register = () => {
     setRole((prev) => ({ ...prev, [event.target.id]: event.target.checked }));
   }, []);
 
-  const roleArray = Object.entries(role);
-  console.log("roles", roleArray);
+  // const roles = Object.entries(role);
+  const roles = Object.entries(role)
+    .filter(([, value]) => value)
+    .map(([key]) => key);
+
+  console.log("roles", roles);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -76,7 +80,7 @@ const Register = () => {
     form.current.validateAll();
 
     if (checkBtnRef.current.context._errors.length === 0) {
-      AuthService.register(username, email, password, roleArray).then(
+      AuthService.register(username, email, password, roles).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);

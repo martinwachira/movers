@@ -18,12 +18,12 @@ const AuthService = {
       });
   },
 
-  register: (username, email, password, role = 1) => {
-    return axios(API_URL + "signup", {
+  register: (username, email, password, roles = []) => {
+    return axios.post(API_URL + "signup", {
       username,
       email,
       password,
-      roleId: role,
+      roles,
     });
   },
 

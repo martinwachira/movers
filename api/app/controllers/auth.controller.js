@@ -14,7 +14,7 @@ exports.signup = async (req, res) => {
     username: req.body.username,
     email: req.body.email,
     password: await bcrypt.hashSync(req.body.password, 8),
-    roleId: req.body.roleId || 1, // set default role to 1 if roleId is not provided
+    roles: req.body.roleId || 1, // set default role to 1 if roleId is not provided
   })
     .then((user) => {
       if (req.body.roles) {
