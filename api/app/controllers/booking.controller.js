@@ -41,6 +41,10 @@ exports.findAllBookings = (req, res) => {
         model: Vehicle,
         attributes: ["vname"],
       },
+      {
+        model: User,
+        attributes: ["username"],
+      },
     ],
   })
     .then((data) => {

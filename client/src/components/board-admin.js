@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import BookingService from "../services/booking.service";
 // import { Navigate } from "react-router-dom";
 import UserService from "../services/user.service";
 import VehicleService from "../services/vehicle.service";
@@ -8,6 +9,7 @@ const BoardAdmin = () => {
   const [content, setContent] = useState("");
   const [users, setUsers] = useState("");
   const [vehicles, setVehicles] = useState("");
+  const [bookings, setBookings] = useState("");
   // const [redirect, setRedirect] = useState(null);
 
   useEffect(() => {
@@ -40,7 +42,6 @@ const BoardAdmin = () => {
       }
     );
     // UserService.getRoles().then((response) => {
-    //   console.log("response roles", response);
     // });
 
     VehicleService.getAllVehicles().then(
@@ -57,7 +58,24 @@ const BoardAdmin = () => {
         );
       }
     );
+
+    BookingService.getAllBookings().then(
+      (response) => {
+        setBookings(response.data);
+      },
+      (error) => {
+        setVehicles(
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+            error.message ||
+            error.toString()
+        );
+      }
+    );
   }, []);
+
+  console.log("bookings", bookings);
 
   // if (redirect) {
   //   return <Navigate to={redirect} />;
@@ -71,7 +89,7 @@ const BoardAdmin = () => {
       <header className="jumbotron">
         <h3>{content}</h3>
       </header>
-      <p style={{ color: "#f09a53" }}>Users</p>
+      <p style={{ color: "#f09a53", fontWeight: "bolder" }}>Users</p>
       <div style={{ marginBottom: "2rem" }}>
         <table className="table">
           <thead class="thead-light">
@@ -114,7 +132,7 @@ const BoardAdmin = () => {
           </tbody>
         </table>
         <br />
-        <p style={{ color: "#f09a53" }}>Vehicles</p>
+        <p style={{ color: "#f09a53", fontWeight: "bolder" }}>Vehicles</p>
         <table className="table">
           <thead class="thead-light">
             <tr>
@@ -163,6 +181,8 @@ const BoardAdmin = () => {
               ))}
           </tbody>
         </table>
+        <br />
+        <p style={{ color: "#f09a53", fontWeight: "bolder" }}>Bookings</p>
       </div>
     </div>
   );

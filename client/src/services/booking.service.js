@@ -21,6 +21,10 @@ const BookingService = {
       vehicleId,
     });
   },
+
+  getAllBookings: () => {
+    return axios.get(API_URL + "getBookings", { headers: authHeader() });
+  },
 };
 
 export default BookingService;
