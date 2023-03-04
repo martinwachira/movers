@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 
+import AddBooking from "./add-booking";
 import UserService from "../services/user.service";
-import UsersHomeHOC from "./UsersHomeHOC";
+
+// import UsersHomeHOC from "./UsersHomeHOC";
 
 const BoardUser = () => {
   const [content, setContent] = useState("");
@@ -28,7 +30,8 @@ const BoardUser = () => {
       <header className="jumbotron">
         <h3>{content}</h3>
         <div className="container" style={{ textAlign: "center" }}>
-          <UsersHomeHOC />
+          {/* <UsersHomeHOC /> */}
+          <AddBooking />
         </div>
       </header>
     </div>
