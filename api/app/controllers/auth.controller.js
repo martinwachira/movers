@@ -9,36 +9,51 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 exports.signup = async (req, res) => {
-  // Save User to Database
-  User.create({
-    username: req.body.username,
-    email: req.body.email,
-    password: await bcrypt.hashSync(req.body.password, 8),
-    roles: req.body.roleId || 1, // set default role to 1 if roleId is not provided
-  })
-    .then((user) => {
-      if (req.body.roles) {
-        Role.findAll({
-          where: {
-            name: {
-              [Op.or]: req.body.roles,
-            },
-          },
-        }).then((roles) => {
-          user.setRoles(roles).then(() => {
-            res.send({ message: "User registered successfully!" });
-          });
-        });
-      } else {
-        // user role = 1
-        user.setRoles([user.roleId]).then(() => {
-          res.send({ message: "User registered successfully!" });
-        });
-      }
-    })
-    .catch((err) => {
-      res.status(500).send({ message: err.message });
+  try {
+    // Save User to Database
+    const user = await User.create({
+      username: req.body.username,
+      email: req.body.email,
+      password: await bcrypt.hashSync(req.body.password, 8),
+      roles:
+        req.body.roles && req.body.roles.length > 0
+          ? req.body.roles
+          : (req.body.roles = ["user"]),
     });
+
+    if (req.body.roles && req.body.roles.length > 0) {
+      const roles = await Role.findAll({
+        where: {
+          name: {
+            [Op.or]: req.body.roles,
+          },
+        },
+      });
+
+      if (roles.length === 0) {
+        res.status(400).send({
+          message: "Cannot assign role to user: invalid role(s) provided",
+        });
+        return;
+      }
+
+      // const roleNames = roles.map((role) => role.name);
+
+      await user.setRoles(roles);
+      res.send({
+        // message: `User registered successfully with assigned roles: ${[
+        //   roleNames,
+        // ]}`,
+        message: `User registered successfully with assigned roles: ${req.body.roles}`,
+      });
+    } else {
+      // await user.setRoles([user.roles]);
+      await user.setRoles([1]);
+      res.send({ message: "User registered successfully with default role" });
+    }
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
 };
 
 exports.signin = (req, res) => {

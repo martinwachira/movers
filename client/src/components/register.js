@@ -69,7 +69,7 @@ const Register = () => {
     .filter(([, value]) => value)
     .map(([key]) => key);
 
-  console.log("roles", roles);
+  // console.log("roles", roles);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -84,7 +84,7 @@ const Register = () => {
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
-          console.log("response", response);
+          // console.log("response", response);
         },
         (error) => {
           const resMessage =
