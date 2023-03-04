@@ -7,6 +7,7 @@ const User = db.user;
 exports.createVehicle = async (req, res) => {
   // Validate request
   if (
+    !req.body.vname ||
     !req.body.vtype ||
     !req.body.vmake ||
     !req.body.vlocation ||
@@ -20,6 +21,7 @@ exports.createVehicle = async (req, res) => {
 
   // Create a Vehicle
   const vehicle = {
+    vname: req.body.vname,
     vtype: req.body.vtype,
     vmake: req.body.vmake,
     vmileage: req.body.vmileage,

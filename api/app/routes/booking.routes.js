@@ -15,4 +15,10 @@ module.exports = function (app) {
     [authJwt.verifyToken],
     controller.createBooking
   );
+
+  app.get(
+    "/api/test/getBookings",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.findAllBookings
+  );
 };

@@ -36,9 +36,7 @@ db.user.belongsToMany(db.role, {
 });
 
 db.user.hasMany(db.vehicle, { foreignKey: "userId" });
-
 db.vehicle.belongsTo(db.user, { foreignKey: "userId" });
-
 db.booking.belongsTo(db.user, { foreignKey: "userId" });
 db.booking.belongsTo(db.vehicle, { foreignKey: "vehicleId" });
 
