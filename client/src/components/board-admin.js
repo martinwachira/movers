@@ -86,9 +86,7 @@ const BoardAdmin = () => {
 
   return (
     <div className="container App">
-      <header className="jumbotron">
-        <h3>{content}</h3>
-      </header>
+      <header className="jumbotron">{/* <h3>{content}</h3> */}</header>
       <p style={{ color: "#f09a53", fontWeight: "bolder" }}>Users</p>
       <div style={{ marginBottom: "2rem" }}>
         <table className="table">

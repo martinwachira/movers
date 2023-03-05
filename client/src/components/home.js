@@ -24,7 +24,7 @@ const Home = () => {
   return (
     <div className="container">
       <header className="jumbotron">
-        <h3>{content}</h3>
+        {/* <h3>{content}</h3> */}
         <div className="container" style={{ textAlign: "center" }}>
           <UsersHomeHOC />
         </div>

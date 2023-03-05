@@ -1,9 +1,11 @@
 import React, { useCallback, useRef, useState } from "react";
 
 import BookingService from "../services/booking.service";
+import Button from "react-bootstrap/Button";
 import CheckButton from "react-validation/build/button";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
+import Modal from "react-bootstrap/Modal";
 
 const required = (value) => {
   if (!value) {
@@ -23,6 +25,10 @@ const AddBooking = () => {
   const [vehicleId, setDriver] = useState("");
   const [message, setMessage] = useState("");
   const [successful, setSuccessful] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const form = useRef(null);
   const checkBtnRef = useRef(null);
@@ -64,100 +70,110 @@ const AddBooking = () => {
 
   return (
     <div className="col-md-12">
-      <div className="card card-container">
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
+      <Button variant="primary" onClick={handleShow}>
+        Book a Move
+      </Button>
+      <Modal show={show} onHide={handleClose}>
+        <div className="card card-container">
+          <Modal.Header closeButton>
+            <Modal.Title>Create a Booking</Modal.Title>
+          </Modal.Header>
+          <Form onSubmit={handleRegister} ref={form}>
+            {!successful && (
+              <div>
+                <div className="form-group">
+                  <label htmlFor="bookingDate">Booking Date</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="bookingDate"
+                    value={bookingDate}
+                    onChange={(e) => setBookingDate(e.target.value)}
+                    validations={[required]}
+                  />
+                </div>
 
-        <Form onSubmit={handleRegister} ref={form}>
-          {!successful && (
-            <div>
+                <div className="form-group">
+                  <label htmlFor="pickupTime">Pickup Time</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="pickupTime"
+                    value={pickupTime}
+                    onChange={(e) => setPickUpTime(e.target.value)}
+                    validations={[required]}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="pickupLocation">Pickup Location</label>
+                  <Input
+                    type="pickupLocation"
+                    className="form-control"
+                    name="pickupLocation"
+                    value={pickupLocation}
+                    onChange={(e) => setPickUpLocation(e.target.value)}
+                    validations={[required]}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="destination">Destination</label>
+                  <Input
+                    type="destination"
+                    className="form-control"
+                    name="destination"
+                    value={destination}
+                    onChange={(e) => setDestination(e.target.value)}
+                    validations={[required]}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="driver">Driver</label>
+                  <Input
+                    type="driver"
+                    className="form-control"
+                    name="driver"
+                    value={vehicleId}
+                    onChange={(e) => setDriver(e.target.value)}
+                    validations={[required]}
+                  />
+                </div>
+
+                <br />
+                <div className="form-group">
+                  {/* <button className="btn btn-primary btn-block">
+                    Make a Booking
+                  </button> */}
+                </div>
+              </div>
+            )}
+
+            {message && (
               <div className="form-group">
-                <label htmlFor="bookingDate">Booking Date</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="bookingDate"
-                  value={bookingDate}
-                  onChange={(e) => setBookingDate(e.target.value)}
-                  validations={[required]}
-                />
+                <div
+                  className={
+                    successful ? "alert alert-success" : "alert alert-danger"
+                  }
+                  role="alert"
+                >
+                  {message}
+                </div>
               </div>
-
-              <div className="form-group">
-                <label htmlFor="pickupTime">Pickup Time</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="pickupTime"
-                  value={pickupTime}
-                  onChange={(e) => setPickUpTime(e.target.value)}
-                  validations={[required]}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="pickupLocation">Pickup Location</label>
-                <Input
-                  type="pickupLocation"
-                  className="form-control"
-                  name="pickupLocation"
-                  value={pickupLocation}
-                  onChange={(e) => setPickUpLocation(e.target.value)}
-                  validations={[required]}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="destination">Destination</label>
-                <Input
-                  type="destination"
-                  className="form-control"
-                  name="destination"
-                  value={destination}
-                  onChange={(e) => setDestination(e.target.value)}
-                  validations={[required]}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="driver">Driver</label>
-                <Input
-                  type="driver"
-                  className="form-control"
-                  name="driver"
-                  value={vehicleId}
-                  onChange={(e) => setDriver(e.target.value)}
-                  validations={[required]}
-                />
-              </div>
-
-              <br />
-              <div className="form-group">
-                <button className="btn btn-primary btn-block">
-                  Make a Booking
-                </button>
-              </div>
-            </div>
-          )}
-
-          {message && (
-            <div className="form-group">
-              <div
-                className={
-                  successful ? "alert alert-success" : "alert alert-danger"
-                }
-                role="alert"
-              >
-                {message}
-              </div>
-            </div>
-          )}
-          <CheckButton style={{ display: "none" }} ref={checkBtnRef} />
-        </Form>
-      </div>
+            )}
+            <CheckButton style={{ display: "none" }} ref={checkBtnRef} />
+          </Form>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+              Make a Booking
+            </Button>
+          </Modal.Footer>
+        </div>
+      </Modal>
     </div>
   );
 };
