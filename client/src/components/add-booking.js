@@ -157,18 +157,6 @@ const AddBooking = () => {
                     validations={[required]}
                   />
                 </div>
-
-                {/* <div className="form-group">
-                  <label htmlFor="driver">Driver</label>
-                  <Input
-                    type="driver"
-                    className="form-control"
-                    name="driver"
-                    value={vehicleId}
-                    onChange={(e) => setDriver(e.target.value)}
-                    validations={[required]}
-                  />
-                </div> */}
                 <br />
                 <Dropdown>
                   <Dropdown.Toggle
@@ -180,25 +168,22 @@ const AddBooking = () => {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    {drivers &&
+                    {drivers.length > 0 ? (
+                      drivers &&
                       drivers?.map((driver) => (
-                        <Dropdown.Item
-                          key={driver.id}
-                          onClick={() => setDriver(driver.id)}
-                        >
+                        <Dropdown.Item key={driver.id}>
                           <strong>{driver.user?.username}</strong> --{" "}
                           {driver.vmake} -- {driver.vlocation}
                         </Dropdown.Item>
-                      ))}
+                      ))
+                    ) : (
+                      <Dropdown.Item>No drivers available</Dropdown.Item>
+                    )}
                   </Dropdown.Menu>
                 </Dropdown>
 
                 <br />
-                <div className="form-group">
-                  {/* <button className="btn btn-primary btn-block">
-                    Make a Booking
-                  </button> */}
-                </div>
+                <div className="form-group"></div>
               </div>
             )}
 

@@ -18,7 +18,7 @@ module.exports = function (app) {
 
   app.get(
     "/api/test/getVehicles",
-    [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken],
     controller.findAllVehicles
   );
 };

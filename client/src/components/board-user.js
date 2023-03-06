@@ -64,7 +64,7 @@ const BoardUser = () => {
               </tr>
             </thead>
             <tbody>
-              {bookings.bookings &&
+              {bookings.bookings > 0 ? (
                 bookings?.bookings.map((booking, index) => (
                   <tr key={booking.id}>
                     <th>{index + 1}</th>
@@ -90,7 +90,10 @@ const BoardUser = () => {
                       <i class="bi bi-trash-fill"></i>
                     </td>
                   </tr>
-                ))}
+                ))
+              ) : (
+                <p>No Bookings Found</p>
+              )}
             </tbody>
           </table>
         </div>

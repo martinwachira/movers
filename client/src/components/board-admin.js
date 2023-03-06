@@ -75,10 +75,6 @@ const BoardAdmin = () => {
     );
   }, []);
 
-  // if (redirect) {
-  //   return <Navigate to={redirect} />;
-  // }
-
   console.log("bookings", bookings);
   console.log("users", users);
   console.log("vehicles", vehicles);
@@ -100,7 +96,7 @@ const BoardAdmin = () => {
             </tr>
           </thead>
           <tbody>
-            {users &&
+            {users.length > 0 ? (
               users?.map((user, index) => (
                 <tr key={user.id}>
                   <th>{index + 1}</th>
@@ -125,7 +121,10 @@ const BoardAdmin = () => {
                     <i class="bi bi-trash-fill"></i>
                   </td>
                 </tr>
-              ))}
+              ))
+            ) : (
+              <p>No Users Found</p>
+            )}
           </tbody>
         </table>
         <br />
@@ -145,7 +144,7 @@ const BoardAdmin = () => {
             </tr>
           </thead>
           <tbody>
-            {vehicles &&
+            {vehicles.length > 0 ? (
               vehicles?.map((vehicle, index) => (
                 <tr key={vehicle.id}>
                   <th>{index + 1}</th>
@@ -175,7 +174,10 @@ const BoardAdmin = () => {
                     <i class="bi bi-trash-fill"></i>
                   </td>
                 </tr>
-              ))}
+              ))
+            ) : (
+              <p>No Vehicles Found</p>
+            )}
           </tbody>
         </table>
         <br />
@@ -195,7 +197,7 @@ const BoardAdmin = () => {
             </tr>
           </thead>
           <tbody>
-            {bookings &&
+            {bookings.length > 0 ? (
               bookings?.map((booking, index) => (
                 <tr key={booking.id}>
                   <th>{index + 1}</th>
@@ -221,7 +223,10 @@ const BoardAdmin = () => {
                     <i class="bi bi-trash-fill"></i>
                   </td>
                 </tr>
-              ))}
+              ))
+            ) : (
+              <p>No Bookings Found</p>
+            )}
           </tbody>
         </table>
       </div>
