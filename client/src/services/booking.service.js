@@ -31,6 +31,12 @@ const BookingService = {
   getAllBookings: () => {
     return axios.get(API_URL + "getBookings", { headers: authHeader() });
   },
+
+  getAllUserBooking: (userId) => {
+    return axios.get(API_URL + `getBookings/${userId}`, {
+      headers: authHeader(),
+    });
+  },
 };
 
 export default BookingService;

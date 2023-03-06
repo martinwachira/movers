@@ -21,4 +21,10 @@ module.exports = function (app) {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.findAllBookings
   );
+
+  app.get(
+    `/api/test/getBookings/:userId`,
+    [authJwt.verifyToken],
+    controller.findAllUserBookings
+  );
 };

@@ -201,21 +201,21 @@ const BoardAdmin = () => {
                 <tr key={booking.id}>
                   <th>{index + 1}</th>
                   <td>
-                    {booking.user.username.charAt(0).toUpperCase() +
-                      booking.user.username.slice(1)}
+                    {booking.user?.username.charAt(0).toUpperCase() +
+                      booking.user?.username.slice(1)}
                   </td>
-                  <td> {booking.bookingDate}</td>
-                  <td>{booking.pickupTime}</td>
+                  <td> {booking?.bookingDate}</td>
+                  <td>{booking?.pickupTime}</td>
                   <td>
-                    {booking.pickupLocation.charAt(0).toUpperCase() +
-                      booking.pickupLocation.slice(1)}
+                    {booking?.pickupLocation.charAt(0).toUpperCase() +
+                      booking?.pickupLocation.slice(1)}
                   </td>
                   <td>
-                    {booking.destination.charAt(0).toUpperCase() +
-                      booking.destination.slice(1)}
+                    {booking?.destination.charAt(0).toUpperCase() +
+                      booking?.destination.slice(1)}
                   </td>
-                  <td> {booking.vehicle.vname.toUpperCase()}</td>
-                  <td>{new Date(booking.createdAt).toDateString()}</td>
+                  <td> {booking.vehicle?.vname.toUpperCase()}</td>
+                  <td>{new Date(booking?.createdAt).toDateString()}</td>
                   <td>
                     <i class="bi bi-pencil-square"></i>
                     &nbsp; &nbsp;

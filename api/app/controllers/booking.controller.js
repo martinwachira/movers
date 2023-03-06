@@ -38,6 +38,40 @@ exports.createBooking = async (req, res) => {
     });
 };
 
+exports.findAllUserBookings = (req, res) => {
+  const userId = req.params.userId;
+
+  Booking.findAll({
+    where: { userId: userId },
+    include: [
+      {
+        model: Vehicle,
+        attributes: ["vname"],
+      },
+      {
+        model: User,
+        attributes: ["username"],
+      },
+    ],
+  })
+    .then((data) => {
+      if (data.length > 0) {
+        res.send({
+          message: `Bookings for User: ${userId} retrieved successfully!`,
+          bookings: data,
+        });
+      } else {
+        res.send({ message: `No Bookings retrieved for User: ${userId}` });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving bookings.",
+      });
+    });
+};
+
 exports.findAllBookings = (req, res) => {
   Booking.findAll({
     include: [
