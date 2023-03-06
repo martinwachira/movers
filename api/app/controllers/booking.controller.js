@@ -72,6 +72,42 @@ exports.findAllUserBookings = (req, res) => {
     });
 };
 
+exports.findAllBookingsByVehicle = (req, res) => {
+  const vehicleId = req.params.vehicleId;
+
+  Booking.findAll({
+    where: { vehicleId: vehicleId },
+    include: [
+      {
+        model: Vehicle,
+        attributes: ["vname"],
+      },
+      {
+        model: User,
+        attributes: ["username"],
+      },
+    ],
+  })
+    .then((data) => {
+      if (data.length > 0) {
+        res.send({
+          message: `Bookings for Vehicle: ${vehicleId} retrieved successfully!`,
+          bookings: data,
+        });
+      } else {
+        res.send({
+          message: `No Bookings retrieved for Vehicle: ${vehicleId}`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving bookings.",
+      });
+    });
+};
+
 exports.findAllBookings = (req, res) => {
   Booking.findAll({
     include: [

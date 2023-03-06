@@ -64,7 +64,7 @@ const BoardAdmin = () => {
         setBookings(response.data);
       },
       (error) => {
-        setVehicles(
+        setBookings(
           (error.response &&
             error.response.data &&
             error.response.data.message) ||

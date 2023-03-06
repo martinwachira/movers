@@ -27,4 +27,10 @@ module.exports = function (app) {
     [authJwt.verifyToken],
     controller.findAllUserBookings
   );
+
+  app.get(
+    `/api/test/getBookingsByVehice/:vehicleId`,
+    [authJwt.verifyToken],
+    controller.findAllBookingsByVehicle
+  );
 };
