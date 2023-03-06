@@ -12,14 +12,20 @@ const BookingService = {
     userId,
     vehicleId
   ) => {
-    return axios.post(API_URL + "createBooking", {
-      bookingDate,
-      pickupTime,
-      pickupLocation,
-      destination,
-      userId,
-      vehicleId,
-    });
+    return axios.post(
+      API_URL + "createBooking",
+      {
+        bookingDate,
+        pickupTime,
+        pickupLocation,
+        destination,
+        userId,
+        vehicleId,
+      },
+      {
+        headers: authHeader(),
+      }
+    );
   },
 
   getAllBookings: () => {

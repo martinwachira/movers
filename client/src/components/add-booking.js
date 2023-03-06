@@ -1,5 +1,6 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
+import AuthService from "../services/auth.service";
 import BookingService from "../services/booking.service";
 import Button from "react-bootstrap/Button";
 import CheckButton from "react-validation/build/button";
@@ -23,6 +24,7 @@ const AddBooking = () => {
   const [pickupLocation, setPickUpLocation] = useState("");
   const [destination, setDestination] = useState("");
   const [vehicleId, setDriver] = useState("");
+  const [userId, setUserId] = useState("");
   const [message, setMessage] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [show, setShow] = useState(false);
@@ -32,6 +34,12 @@ const AddBooking = () => {
 
   const form = useRef(null);
   const checkBtnRef = useRef(null);
+
+  useEffect(() => {
+    const userId = AuthService.getCurrentUser();
+
+    setUserId(userId.id);
+  }, []);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -47,6 +55,7 @@ const AddBooking = () => {
         pickupTime,
         pickupLocation,
         destination,
+        userId,
         vehicleId
       ).then(
         (response) => {
@@ -84,7 +93,7 @@ const AddBooking = () => {
                 <div className="form-group">
                   <label htmlFor="bookingDate">Booking Date</label>
                   <Input
-                    type="text"
+                    type="date"
                     className="form-control"
                     name="bookingDate"
                     value={bookingDate}
@@ -96,7 +105,7 @@ const AddBooking = () => {
                 <div className="form-group">
                   <label htmlFor="pickupTime">Pickup Time</label>
                   <Input
-                    type="text"
+                    type="time"
                     className="form-control"
                     name="pickupTime"
                     value={pickupTime}
@@ -168,7 +177,7 @@ const AddBooking = () => {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleClose}>
+            <Button variant="primary" onClick={handleRegister}>
               Make a Booking
             </Button>
           </Modal.Footer>
