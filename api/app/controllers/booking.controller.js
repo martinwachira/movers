@@ -24,10 +24,10 @@ exports.createBooking = async (req, res) => {
   // Save booking in the database
   Booking.create(booking)
     .then((data) => {
-      console.log("data", data);
-      res.send(data);
+      // res.send(data);
       res.send({
-        message: "Your booking was successfuly done, please plan accordingly",
+        data,
+        message: "Your booking was successfuly done, please plan accordingly!",
       });
     })
     .catch((err) => {
