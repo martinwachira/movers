@@ -4,9 +4,11 @@ import AuthService from "../services/auth.service";
 import BookingService from "../services/booking.service";
 import Button from "react-bootstrap/Button";
 import CheckButton from "react-validation/build/button";
+import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import Modal from "react-bootstrap/Modal";
+import VehicleService from "../services/vehicle.service";
 
 const required = (value) => {
   if (!value) {
@@ -26,6 +28,7 @@ const AddBooking = () => {
   const [vehicleId, setDriver] = useState("");
   const [userId, setUserId] = useState("");
   const [message, setMessage] = useState("");
+  const [drivers, setDrivers] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [show, setShow] = useState(false);
 
@@ -39,6 +42,21 @@ const AddBooking = () => {
     const userId = AuthService.getCurrentUser();
 
     setUserId(userId.id);
+
+    VehicleService.getAllVehicles().then(
+      (response) => {
+        setDrivers(response.data);
+      },
+      (error) => {
+        setDrivers(
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+            error.message ||
+            error.toString()
+        );
+      }
+    );
   }, []);
 
   const handleRegister = (e) => {
@@ -76,6 +94,8 @@ const AddBooking = () => {
       );
     }
   };
+
+  console.log("drivers", drivers);
 
   return (
     <div className="col-md-12">
@@ -138,7 +158,7 @@ const AddBooking = () => {
                   />
                 </div>
 
-                <div className="form-group">
+                {/* <div className="form-group">
                   <label htmlFor="driver">Driver</label>
                   <Input
                     type="driver"
@@ -148,7 +168,30 @@ const AddBooking = () => {
                     onChange={(e) => setDriver(e.target.value)}
                     validations={[required]}
                   />
-                </div>
+                </div> */}
+                <br />
+                <Dropdown>
+                  <Dropdown.Toggle
+                    variant="secondary"
+                    id="dropdown-basic"
+                    className="form-control"
+                  >
+                    Drivers
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    {drivers &&
+                      drivers?.map((driver) => (
+                        <Dropdown.Item
+                          key={driver.id}
+                          onClick={() => setDriver(driver.id)}
+                        >
+                          <strong>{driver.user?.username}</strong> --{" "}
+                          {driver.vmake} -- {driver.vlocation}
+                        </Dropdown.Item>
+                      ))}
+                  </Dropdown.Menu>
+                </Dropdown>
 
                 <br />
                 <div className="form-group">

@@ -75,12 +75,11 @@ const BoardAdmin = () => {
     );
   }, []);
 
-  console.log("bookings", bookings);
-
   // if (redirect) {
   //   return <Navigate to={redirect} />;
   // }
 
+  console.log("bookings", bookings);
   console.log("users", users);
   console.log("vehicles", vehicles);
 
