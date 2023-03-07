@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import AuthService from "../services/auth.service";
 import BookingService from "../services/booking.service";
 import UserService from "../services/user.service";
 
@@ -8,7 +9,8 @@ const BoardStaff = () => {
   const [bookings, setBookings] = useState("");
 
   useEffect(() => {
-    const userId = BookingService.findAllBookingsByVehicle().id;
+    const userId = AuthService.getCurrentUser().id;
+
     UserService.getStaffBoard().then(
       (response) => {
         setContent(response.data);
@@ -23,8 +25,6 @@ const BoardStaff = () => {
         );
       }
     );
-
-    console.log("user id", userId);
 
     BookingService.findAllBookingsByVehicle(userId).then(
       (response) => {
@@ -41,6 +41,7 @@ const BoardStaff = () => {
       }
     );
   }, []);
+  console.log("bookings", bookings);
 
   return (
     <div className="container">
