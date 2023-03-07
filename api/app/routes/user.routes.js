@@ -33,6 +33,13 @@ module.exports = function (app) {
     controller.findAllUsers
   );
 
+  // update user record
+  app.put(
+    "/api/test/updateUser/:userId",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.updateUser
+  );
+
   //get roles
   // app.get(
   //   "/api/test/getRoles",

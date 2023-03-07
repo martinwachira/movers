@@ -75,3 +75,34 @@ exports.findAllUsers = (req, res) => {
       });
     });
 };
+
+// update user
+exports.updateUser = (req, res) => {
+  const userId = req.params.userId;
+
+  User.update(
+    {
+      name: req.body.name,
+      verified: req.body.verified,
+    },
+    {
+      where: { id: userId },
+    }
+  )
+    .then((num) => {
+      if (num == 1) {
+        res.send({
+          message: "User was updated successfully.",
+        });
+      } else {
+        res.send({
+          message: `Cannot update user with id=${userId}. Maybe user was not found or req.body is empty!`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error updating user with id=" + userId,
+      });
+    });
+};
