@@ -91,6 +91,7 @@ const BoardAdmin = () => {
               <th scope="col">Username</th>
               <th scope="col">Email</th>
               <th scope="col">Role</th>
+              <th scope="col">Status</th>
               <th scope="col">Date Created</th>
               <th scope="col">Action</th>
             </tr>
@@ -113,6 +114,13 @@ const BoardAdmin = () => {
                           <i>{role} | </i>
                         </span>
                       ))}
+                  </td>
+                  <td>
+                    {user.roles.includes("User")
+                      ? "N/A"
+                      : user.verified
+                      ? "Verified"
+                      : "Not Verified"}
                   </td>
                   <td>{new Date(user.createdAt).toDateString()}</td>
                   <td>
