@@ -29,7 +29,7 @@ module.exports = function (app) {
   );
 
   app.get(
-    `/api/test/getBookingsByVehice/:vehicleId`,
+    `/api/test/getBookingsByVehice/:userId`,
     [authJwt.verifyToken],
     controller.findAllBookingsByVehicle
   );

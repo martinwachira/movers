@@ -73,32 +73,56 @@ exports.findAllUserBookings = (req, res) => {
 };
 
 exports.findAllBookingsByVehicle = (req, res) => {
-  const vehicleId = req.params.vehicleId;
+  const userId = req.params.userId;
 
+  // Booking.findAll({
+  //   // where: { vehicleId: vehicleId },
+  //   include: [
+  //     {
+  //       model: Vehicle,
+  //       where: {
+  //         driverId: driverId,
+  //       },
+  //     },
+  //     {
+  //       model: User,
+  //     },
+  //   ],
+  // })
+  //   .then((data) => {
+  //     if (data.length > 0) {
+  //       res.send({
+  //         message: `Bookings for Vehicle: ${vehicleId} retrieved successfully!`,
+  //         bookings: data,
+  //       });
+  //     } else {
+  //       res.send({
+  //         message: `No Bookings retrieved for Vehicle: ${vehicleId}`,
+  //       });
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     res.status(500).send({
+  //       message:
+  //         err.message || "Some error occurred while retrieving bookings.",
+  //     });
+  //   });
   Booking.findAll({
-    where: { vehicleId: vehicleId },
     include: [
       {
         model: Vehicle,
-        attributes: ["vname"],
+        where: {
+          userId: userId,
+        },
       },
       {
         model: User,
-        attributes: ["username"],
       },
     ],
   })
-    .then((data) => {
-      if (data.length > 0) {
-        res.send({
-          message: `Bookings for Vehicle: ${vehicleId} retrieved successfully!`,
-          bookings: data,
-        });
-      } else {
-        res.send({
-          message: `No Bookings retrieved for Vehicle: ${vehicleId}`,
-        });
-      }
+    .then((bookings) => {
+      res.send(bookings);
+      console.log("res", bookings);
     })
     .catch((err) => {
       res.status(500).send({

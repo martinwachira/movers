@@ -8,6 +8,7 @@ const BoardStaff = () => {
   const [bookings, setBookings] = useState("");
 
   useEffect(() => {
+    const userId = BookingService.findAllBookingsByVehicle().id;
     UserService.getStaffBoard().then(
       (response) => {
         setContent(response.data);
@@ -23,7 +24,9 @@ const BoardStaff = () => {
       }
     );
 
-    BookingService.getAllBookings().then(
+    console.log("user id", userId);
+
+    BookingService.findAllBookingsByVehicle(userId).then(
       (response) => {
         setBookings(response.data);
       },

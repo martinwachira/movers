@@ -32,6 +32,12 @@ const BookingService = {
     return axios.get(API_URL + "getBookings", { headers: authHeader() });
   },
 
+  findAllBookingsByVehicle: (userId) => {
+    return axios.get(API_URL + `getBookingsByVehicle/${userId}`, {
+      headers: authHeader(),
+    });
+  },
+
   getAllUserBooking: (userId) => {
     return axios.get(API_URL + `getBookings/${userId}`, {
       headers: authHeader(),
