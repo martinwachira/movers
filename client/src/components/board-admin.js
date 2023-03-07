@@ -164,8 +164,8 @@ const BoardAdmin = () => {
                   </td>
                   <td>{vehicle.vcapacity}</td>
                   <td>
-                    {vehicle.user.username.charAt(0).toUpperCase() +
-                      vehicle.user.username.slice(1)}
+                    {vehicle.user?.username.charAt(0).toUpperCase() +
+                      vehicle.user?.username.slice(1)}
                   </td>
                   <td>{new Date(vehicle.createdAt).toDateString()}</td>
                   <td>
