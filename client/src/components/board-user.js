@@ -69,8 +69,8 @@ const BoardUser = () => {
                   <tr key={booking.id}>
                     <th>{index + 1}</th>
                     <td>
-                      {booking?.user.username.charAt(0).toUpperCase() +
-                        booking?.user.username.slice(1)}
+                      {booking.user?.username.charAt(0).toUpperCase() +
+                        booking.user?.username.slice(1)}
                     </td>
                     <td> {booking?.bookingDate}</td>
                     <td>{booking?.pickupTime}</td>
