@@ -116,11 +116,21 @@ const BoardAdmin = () => {
                       ))}
                   </td>
                   <td>
-                    {user.roles.includes("User")
-                      ? "N/A"
-                      : user.verified
-                      ? "Verified"
-                      : "Not Verified"}
+                    <span
+                      style={{
+                        color: user.roles.includes("User")
+                          ? "orange"
+                          : user.verified
+                          ? "green"
+                          : "red",
+                      }}
+                    >
+                      {user.roles.includes("User")
+                        ? "N/A"
+                        : user.verified
+                        ? "Verified"
+                        : "Not Verified"}
+                    </span>
                   </td>
                   <td>{new Date(user.createdAt).toDateString()}</td>
                   <td>
