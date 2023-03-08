@@ -6,22 +6,24 @@ const UsersHomeHOC = () => {
       <h2>Moving made easier with Movers App</h2>
       <div className="homeCard">
         <h5>Users</h5>
-        <p>Users creates account</p>
-        <p>Users logs in to the account</p>
-        <p>Users views all staffs</p>
-        <p>Users makes a booking</p>
-        <p>Users makes payments</p>
+        <p>User creates account</p>
+        <p>User logs in to the account</p>
+        <p>User views all drivers</p>
+        <p>User views personal profile</p>
+        <p>User makes/views bookings</p>
       </div>
       <div className="homeCard">
         <h5>Staffs</h5>
-        <p>Staffs manages their account</p>
-        <p>Staffs views users</p>
+        <p>Driver views personal profile</p>
+        <p>Driver makes a booking</p>
+        <p>Driver views bookings made (individually)</p>
       </div>
       <div className="homeCard">
         <h5>Admins</h5>
-        <p>Admins manages user's accounts</p>
-        <p>Admins adds vehicles</p>
-        <p>Admins verifies staffs</p>
+        <p>Admin manages user's accounts</p>
+        <p>Admin verifies drivers</p>
+        <p>Admin adds vehicles</p>
+        <p>Admin updates accounts</p>
       </div>
     </>
   );

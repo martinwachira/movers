@@ -25,7 +25,7 @@ const UserService = () => {
   }
 
   function updateUser(userId, currentUser) {
-    return axios.get(API_URL + `updateUser/${userId}`, currentUser, {
+    return axios.put(API_URL + `updateUser/${userId}`, currentUser, {
       headers: authHeader(),
     });
   }

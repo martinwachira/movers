@@ -93,8 +93,11 @@ exports.updateUser = (req, res) => {
   )
     .then((num) => {
       if (num == 1) {
-        res.send({
-          message: "User was updated successfully.",
+        // res.send({
+        //   message: "User was updated successfully.",
+        // });
+        User.findByPk(userId).then((user) => {
+          res.send({ user, message: "User was updated successfully" });
         });
       } else {
         res.send({

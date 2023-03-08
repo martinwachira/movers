@@ -13,6 +13,8 @@ const BoardAdmin = () => {
   const [bookings, setBookings] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
   const [show, setShow] = useState(false);
+  const [message, setMessage] = useState("");
+  const [successful, setSuccessful] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -105,11 +107,28 @@ const BoardAdmin = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setMessage("");
+    setSuccessful(false);
     UserService.updateUser(currentUser.id, currentUser)
-      .then((response) => {
-        console.log("updated", response.data, "current user", currentUser);
-        setCurrentUser(response);
-      })
+      .then(
+        (response) => {
+          console.log("updated", response.data, "current user", currentUser);
+          setCurrentUser(response);
+          setMessage(response.data.message);
+          setSuccessful(true);
+        },
+        (error) => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+          setMessage(resMessage);
+          setSuccessful(false);
+        }
+      )
       .catch((error) => {
         console.log(error);
       });
@@ -133,6 +152,18 @@ const BoardAdmin = () => {
           <Modal.Title>Update User</Modal.Title>
         </Modal.Header>
         <div className="card card-container">
+          {message && (
+            <div className="form-group">
+              <div
+                className={
+                  successful ? "alert alert-success" : "alert alert-danger"
+                }
+                role="alert"
+              >
+                {message}
+              </div>
+            </div>
+          )}
           {currentUser && (
             <form onSubmit={handleSubmit}>
               <div className="form-group">
@@ -178,6 +209,7 @@ const BoardAdmin = () => {
                 />
               </div>
               <br />
+
               <button
                 style={{
                   padding: ".5rem",
@@ -251,7 +283,7 @@ const BoardAdmin = () => {
                       onClick={() => handleEditUser(user)}
                     ></i>
                     &nbsp; &nbsp;
-                    <i class="bi bi-trash-fill"></i>
+                    {/* <i class="bi bi-trash-fill"></i> */}
                   </td>
                 </tr>
               ))
@@ -273,7 +305,7 @@ const BoardAdmin = () => {
               <th scope="col">Capacity</th>
               <th scope="col">Driver</th>
               <th scope="col">Date Created</th>
-              <th scope="col">Action</th>
+              {/* <th scope="col">Action</th> */}
             </tr>
           </thead>
           <tbody>
@@ -301,11 +333,11 @@ const BoardAdmin = () => {
                       vehicle.user?.username.slice(1)}
                   </td>
                   <td>{new Date(vehicle.createdAt).toDateString()}</td>
-                  <td>
+                  {/* <td>
                     <i class="bi bi-pencil-square"></i>
                     &nbsp; &nbsp;
                     <i class="bi bi-trash-fill"></i>
-                  </td>
+                  </td> */}
                 </tr>
               ))
             ) : (
@@ -326,7 +358,7 @@ const BoardAdmin = () => {
               <th scope="col">Destination</th>
               <th scope="col">Vehicle</th>
               <th scope="col">Created At</th>
-              <th scope="col">Action</th>
+              {/* <th scope="col">Action</th> */}
             </tr>
           </thead>
           <tbody>
@@ -350,11 +382,11 @@ const BoardAdmin = () => {
                   </td>
                   <td> {booking.vehicle?.vname.toUpperCase()}</td>
                   <td>{new Date(booking?.createdAt).toDateString()}</td>
-                  <td>
+                  {/* <td>
                     <i class="bi bi-pencil-square"></i>
                     &nbsp; &nbsp;
                     <i class="bi bi-trash-fill"></i>
-                  </td>
+                  </td> */}
                 </tr>
               ))
             ) : (

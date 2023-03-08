@@ -60,7 +60,7 @@ const BoardUser = () => {
                 <th scope="col">Destination</th>
                 <th scope="col">Vehicle</th>
                 <th scope="col">Created At</th>
-                <th scope="col">Action</th>
+                {/* <th scope="col">Action</th> */}
               </tr>
             </thead>
             <tbody>
@@ -84,11 +84,11 @@ const BoardUser = () => {
                     </td>
                     <td> {booking.vehicle?.vname.toUpperCase()}</td>
                     <td>{new Date(booking?.createdAt).toDateString()}</td>
-                    <td>
+                    {/* <td>
                       <i class="bi bi-pencil-square"></i>
                       &nbsp; &nbsp;
                       <i class="bi bi-trash-fill"></i>
-                    </td>
+                    </td> */}
                   </tr>
                 ))
               ) : (
