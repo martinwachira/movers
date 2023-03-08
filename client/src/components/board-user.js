@@ -29,14 +29,13 @@ const BoardUser = () => {
 
     BookingService.getAllUserBooking(userId)
       .then((response) => {
+        console.log("bookings", response.data);
         setUserBookings(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
-
-  console.log("bookings", bookings);
 
   return (
     <div className="container">
@@ -64,8 +63,8 @@ const BoardUser = () => {
               </tr>
             </thead>
             <tbody>
-              {bookings.bookings > 0 ? (
-                bookings?.bookings.map((booking, index) => (
+              {bookings.bookings?.length > 0 ? (
+                bookings.bookings?.map((booking, index) => (
                   <tr key={booking.id}>
                     <th>{index + 1}</th>
                     <td>

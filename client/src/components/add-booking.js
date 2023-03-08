@@ -95,18 +95,16 @@ const AddBooking = () => {
     }
   };
 
-  console.log("drivers", drivers);
-
   return (
     <div className="col-md-12">
       <Button variant="primary" onClick={handleShow}>
         Book a Move
       </Button>
       <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Create a Booking</Modal.Title>
+        </Modal.Header>
         <div className="card card-container">
-          <Modal.Header closeButton>
-            <Modal.Title>Create a Booking</Modal.Title>
-          </Modal.Header>
           <Form onSubmit={handleRegister} ref={form}>
             {!successful && (
               <div>
@@ -171,7 +169,11 @@ const AddBooking = () => {
                     {drivers.length > 0 ? (
                       drivers &&
                       drivers?.map((driver) => (
-                        <Dropdown.Item key={driver.id}>
+                        <Dropdown.Item
+                          key={driver.id}
+                          // value={driver.id}
+                          onClick={() => setDriver(driver.id)}
+                        >
                           <strong>{driver.user?.username}</strong> --{" "}
                           {driver.vmake} -- {driver.vlocation}
                         </Dropdown.Item>
