@@ -24,6 +24,12 @@ const UserService = () => {
     return axios.get(API_URL + "getUsers", { headers: authHeader() });
   }
 
+  function updateUser(userId, currentUser) {
+    return axios.get(API_URL + `updateUser/${userId}`, currentUser, {
+      headers: authHeader(),
+    });
+  }
+
   // function getRoles() {
   //   return axios.get(API_URL + "getRoles", { headers: authHeader() });
   // }
@@ -34,6 +40,7 @@ const UserService = () => {
     getStaffBoard,
     getAdminBoard,
     getAllUsers,
+    updateUser,
     // getRoles,
   };
 };

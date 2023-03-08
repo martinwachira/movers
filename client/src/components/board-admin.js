@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 
+import AuthService from "../services/auth.service";
 import BookingService from "../services/booking.service";
-// import { Navigate } from "react-router-dom";
+import Modal from "react-bootstrap/Modal";
 import UserService from "../services/user.service";
 import VehicleService from "../services/vehicle.service";
 
@@ -10,6 +11,12 @@ const BoardAdmin = () => {
   const [users, setUsers] = useState("");
   const [vehicles, setVehicles] = useState("");
   const [bookings, setBookings] = useState("");
+  const [currentUser, setCurrentUser] = useState(null);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   // const [redirect, setRedirect] = useState(null);
 
   useEffect(() => {
@@ -75,12 +82,117 @@ const BoardAdmin = () => {
     );
   }, []);
 
-  console.log("bookings", bookings);
-  console.log("users", users);
-  console.log("vehicles", vehicles);
+  // const handleUpdateUser = (data) => {
+  //   const userId = AuthService.getCurrentUser().id;
+  //   UserService.updateUser(userId, data)
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       // Handle success
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       // Handle error
+  //     });
+  // };
+
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    setCurrentUser((prevUser) => ({
+      ...prevUser,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    UserService.updateUser(currentUser.id, currentUser)
+      .then((response) => {
+        console.log("updated", response.data, "current user", currentUser);
+        setCurrentUser(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleEditUser = (user) => {
+    setCurrentUser(user);
+    handleShow(true);
+  };
+
+  console.log("user", currentUser);
+
+  // console.log("bookings", bookings);
+  // console.log("users", users);
+  // console.log("vehicles", vehicles);
 
   return (
     <div className="container App">
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Update User</Modal.Title>
+        </Modal.Header>
+        <div className="card card-container">
+          {currentUser && (
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label>Username:</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="username"
+                  value={currentUser.username}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="form-group">
+                <label>Email:</label>
+                <input
+                  className="form-control"
+                  type="email"
+                  name="email"
+                  value={currentUser.email}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="form-group">
+                <label>Roles:</label>
+                <select
+                  className="form-control"
+                  name="roles"
+                  value={currentUser.roles}
+                  onChange={handleChange}
+                >
+                  <option value="User">User</option>
+                  <option value="Staff">Staff</option>
+                  <option value="Admin">Admin</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Verified:</label>
+                <input
+                  type="checkbox"
+                  name="verified"
+                  checked={currentUser.verified}
+                  onChange={handleChange}
+                />
+              </div>
+              <br />
+              <button
+                style={{
+                  padding: ".5rem",
+                  backgroundColor: "green",
+                  color: "white",
+                }}
+                type="submit"
+              >
+                Save Changes
+              </button>
+            </form>
+          )}
+        </div>
+      </Modal>
+
       <header className="jumbotron">{/* <h3>{content}</h3> */}</header>
       <p style={{ color: "#f09a53", fontWeight: "bolder" }}>Users</p>
       <div style={{ marginBottom: "2rem" }}>
@@ -134,7 +246,10 @@ const BoardAdmin = () => {
                   </td>
                   <td>{new Date(user.createdAt).toDateString()}</td>
                   <td>
-                    <i class="bi bi-pencil-square"></i>
+                    <i
+                      class="bi bi-pencil-square"
+                      onClick={() => handleEditUser(user)}
+                    ></i>
                     &nbsp; &nbsp;
                     <i class="bi bi-trash-fill"></i>
                   </td>

@@ -82,7 +82,9 @@ exports.updateUser = (req, res) => {
 
   User.update(
     {
-      name: req.body.name,
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password,
       verified: req.body.verified,
     },
     {
